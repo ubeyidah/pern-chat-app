@@ -1,0 +1,29 @@
+{
+  "name": "pern-chat-app",
+  "version": "1.0.0",
+  "description": "a pern stack chat app",
+  "keywords": [
+    "pern-stack",
+    "chat-app",
+    "js",
+    "ts",
+    "node",
+    "soket.io"
+  ],
+  "license": "ISC",
+  "author": "ubeyid oumer",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node backend/src/index.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
+}
