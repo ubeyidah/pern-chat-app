@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { signUpSchema } from "../validations/auth.validation";
+import { signInSchema, signUpSchema } from "../validations/auth.validation";
 import prisma from "../config/db.config";
-import { genTokenAndSetCookie, hashPassword } from "../utils/auth.utils";
+import {
+  confirmPassword,
+  genTokenAndSetCookie,
+  hashPassword,
+} from "../utils/auth.utils";
 import { getProfileUri } from "../utils/profile.util";
 
 export const signUp = async (
@@ -62,10 +66,57 @@ export const signIn = async (
   next: NextFunction
 ) => {
   try {
+    const { error, data } = signInSchema.safeParse(req.body);
+    if (error) {
+      res.status(400).json({
+        success: false,
+        data: null,
+        error: { message: error.errors[0].message },
+      });
+      return;
+    }
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [{ email: data.identifier }, { username: data.identifier }],
+      },
+    });
+    if (!user) {
+      res.status(404).json({
+        success: false,
+        data: null,
+        error: {
+          message:
+            "The username or email you entered does not match any account. Please try again.",
+        },
+      });
+      return;
+    }
+    const isMatchedPassword = await confirmPassword(
+      data.password,
+      user.password
+    );
+    if (!isMatchedPassword) {
+      res.status(400).json({
+        success: false,
+        data: null,
+        error: {
+          message: "The password you entered is incorrect. Please try again.",
+        },
+      });
+      return;
+    }
+    const { password, ...userWithoutPassword } = user;
+    genTokenAndSetCookie(res, user.id);
+    res.status(200).json({
+      success: true,
+      data: { user: userWithoutPassword },
+      error: null,
+    });
   } catch (error) {
     next(error);
   }
 };
+
 export const signOut = async (
   req: Request,
   res: Response,

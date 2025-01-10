@@ -16,7 +16,15 @@ export const signUpSchema = z
     path: ["confirmPassword"],
   });
 
-export const singInSchema = z.object({
-  username: z.string().min(1, "Username is required"),
+export const signInSchema = z.object({
+  identifier: z
+    .string()
+    .min(1, "Username or email is required")
+    .refine(
+      (value) => /\S+@\S+\.\S+/.test(value) || /^[a-zA-Z0-9._-]+$/.test(value),
+      {
+        message: "Identifier must be a valid email or username",
+      }
+    ),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
