@@ -43,7 +43,6 @@ model Message {
   updatedAt      DateTime     @updatedAt
   converstaionId String
   conversation   Conversation @relation(fields: [converstaionId], references: [id])
-  userId         String?
   senderId       String
   sender         User         @relation(fields: [senderId], references: [id])
   body           String
