@@ -129,3 +129,30 @@ export const signOut = (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+
+export const getMe = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.userId;
+    const user = await prisma.user.findFirst({ where: { id } });
+    if (!user) {
+      res.status(404).json({
+        success: false,
+        data: null,
+        error: { message: "user not found" },
+      });
+      return;
+    }
+    const { password, ...userWithoutPassword } = user!;
+    res.status(200).json({
+      success: true,
+      data: { user: userWithoutPassword },
+      error: null,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
