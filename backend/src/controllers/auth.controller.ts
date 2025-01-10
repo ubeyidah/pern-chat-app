@@ -117,12 +117,14 @@ export const signIn = async (
   }
 };
 
-export const signOut = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const signOut = (req: Request, res: Response, next: NextFunction) => {
   try {
+    res.clearCookie("chatToken");
+    res.status(200).json({
+      success: true,
+      error: null,
+      data: { message: "signout successfully" },
+    });
   } catch (error) {
     next(error);
   }
