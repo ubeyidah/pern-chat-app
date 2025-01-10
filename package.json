@@ -18,9 +18,11 @@
     "dev": "nodemon --exec ts-node backend/src/index.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
+    "prisma": "^6.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
