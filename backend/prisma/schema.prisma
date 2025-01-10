@@ -13,6 +13,7 @@ model User {
   email     String   @unique
   password  String
   gender    Gender
+  profile   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
