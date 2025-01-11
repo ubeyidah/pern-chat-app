@@ -8,3 +8,10 @@ export interface User {
   profile: string;
   conversationIds: string[];
 }
+
+export interface UserConvType {
+  id: string;
+  username: string;
+  email: string;
+  profile: string;
+}

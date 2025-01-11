@@ -1,3 +1,4 @@
+import Conversation from "./conversation/Conversation";
 import Profile from "./Profile";
 
 const Sidebar = () => {
@@ -21,6 +22,7 @@ const Sidebar = () => {
           </svg>
         </label>
       </div>
+      <Conversation />
     </aside>
   );
 };
