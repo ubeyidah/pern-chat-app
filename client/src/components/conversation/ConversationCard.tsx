@@ -1,6 +1,6 @@
 import { UserConvType } from "../../types/types";
 
-const ConversationCard = ({ id, email, username, profile }: UserConvType) => {
+const ConversationCard = ({ email, username, profile }: UserConvType) => {
   return (
     <div className="flex gap-3 items-center cursor-pointer p-3 hover:bg-slate-500/30 transition-colors duration-200 py-4">
       <div className="avatar">
