@@ -55,3 +55,48 @@ export const sendMessage = async (
     next(error);
   }
 };
+
+export const getMessages = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id: userToChatId } = req.params;
+    const senderId = req.userId as string;
+
+    const conversation = await prisma.conversation.findFirst({
+      where: {
+        participantIds: {
+          hasEvery: [userToChatId, senderId],
+        },
+      },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
+      },
+    });
+    if (!conversation) {
+      res
+        .status(404)
+        .json({
+          success: false,
+          data: null,
+          error: { message: "no message started yet" },
+        });
+      return;
+    }
+    res
+      .status(200)
+      .json({
+        success: true,
+        data: { messages: conversation.messages },
+        error: null,
+      });
+  } catch (error) {
+    next(error);
+  }
+};
