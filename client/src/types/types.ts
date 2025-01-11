@@ -15,3 +15,12 @@ export interface UserConvType {
   email: string;
   profile: string;
 }
+
+export interface MessageType {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  converstaionId: string;
+  senderId: string;
+  body: string;
+}
