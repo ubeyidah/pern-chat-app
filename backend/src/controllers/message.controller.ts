@@ -80,22 +80,57 @@ export const getMessages = async (
       },
     });
     if (!conversation) {
-      res
-        .status(404)
-        .json({
-          success: false,
-          data: null,
-          error: { message: "no message started yet" },
-        });
+      res.status(404).json({
+        success: false,
+        data: null,
+        error: { message: "no message started yet" },
+      });
       return;
     }
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: { messages: conversation.messages },
-        error: null,
+    res.status(200).json({
+      success: true,
+      data: { messages: conversation.messages },
+      error: null,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getConversationUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const authUserId = req.userId as string;
+
+    const conversationUsers = await prisma.user.findMany({
+      where: {
+        id: {
+          not: authUserId,
+        },
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+        profile: true,
+      },
+    });
+    if (!conversationUsers) {
+      res.status(404).json({
+        success: false,
+        data: null,
+        error: { message: "no conversation users found" },
       });
+      return;
+    }
+    res.status(200).json({
+      success: true,
+      data: { users: conversationUsers },
+      error: null,
+    });
   } catch (error) {
     next(error);
   }
