@@ -30,7 +30,7 @@ const SignIn = () => {
 
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text">Email or User Name</span>
             </div>
             <input
               type="text"
