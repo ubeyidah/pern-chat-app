@@ -46,8 +46,6 @@ const useAuthentication = () => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result, data);
-
       if (res.status >= 400 && res.status < 500) {
         toast.info(result.error.message);
         return;
