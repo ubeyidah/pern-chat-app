@@ -20,7 +20,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="grid grid-cols-2 max-sm:grid-cols-1 gap-4">
+    <section className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
       <div className="flex items-center justify-center h-screen">
         <form
           className="p-8 w-full max-w-md flex flex-col"
@@ -75,7 +75,11 @@ const SignIn = () => {
         </form>
       </div>
       <div>
-        <img src="" alt="" />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1681487807762-98fbe8a9db5e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt=""
+          className="h-full"
+        />
       </div>
     </section>
   );
