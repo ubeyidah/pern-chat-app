@@ -4,17 +4,19 @@ import { signUpSchema } from "../utils/validation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormError from "../components/FormError";
+import useAuthentication from "../hooks/useAuthentication";
 
 const SignUp = () => {
   type signupSchemaType = z.infer<typeof signUpSchema>;
+  const { signUp, loading } = useAuthentication();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<signupSchemaType>({ resolver: zodResolver(signUpSchema) });
 
-  const onSubmit: SubmitHandler<signupSchemaType> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<signupSchemaType> = async (data) => {
+    await signUp(data);
   };
 
   return (
@@ -102,8 +104,12 @@ const SignUp = () => {
             </label>
           </div>
 
-          <button className="btn btn-accent mt-8" type="submit">
-            Sign Up
+          <button
+            className="btn btn-accent mt-8"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Submiting.." : " Sign Up"}
           </button>
           <div>
             <p className="text-center mt-3">

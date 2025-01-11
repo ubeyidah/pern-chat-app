@@ -67,6 +67,7 @@ export const signIn = async (
 ) => {
   try {
     const { error, data } = signInSchema.safeParse(req.body);
+
     if (error) {
       res.status(400).json({
         success: false,

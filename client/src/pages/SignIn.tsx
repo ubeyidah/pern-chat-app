@@ -4,18 +4,21 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormError from "../components/FormError";
+import useAuthentication from "../hooks/useAuthentication";
 
 const SignIn = () => {
   type signinSchemaType = z.infer<typeof signInSchema>;
+  const { signIn, loading } = useAuthentication();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<signinSchemaType>({ resolver: zodResolver(signInSchema) });
 
-  const onSubmit: SubmitHandler<signinSchemaType> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<signinSchemaType> = async (data) => {
+    await signIn(data);
   };
+
   return (
     <section className="grid grid-cols-2 max-sm:grid-cols-1 gap-4">
       <div className="flex items-center justify-center h-screen">
@@ -54,8 +57,12 @@ const SignIn = () => {
             <FormError error={errors.password} />
           </label>
 
-          <button className="btn btn-accent mt-8" type="submit">
-            Sign In
+          <button
+            className="btn btn-accent mt-8"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Submiting.." : " Sign In"}
           </button>
           <div>
             <p className="text-center mt-3">
