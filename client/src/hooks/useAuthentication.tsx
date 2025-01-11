@@ -87,11 +87,31 @@ const useAuthentication = () => {
     }
   };
 
+  const account = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/me");
+      const result = await res.json();
+      if (res.status >= 400 && res.status < 500) {
+        return;
+      }
+      if (!res.ok) {
+        throw res.statusText;
+      }
+      signin(result.data.user);
+    } catch (error) {
+      toast.error("Oops! Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     loading,
     signUp,
     signIn,
     signOut,
+    account,
   };
 };
 export default useAuthentication;

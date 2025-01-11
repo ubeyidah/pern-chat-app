@@ -6,8 +6,18 @@ import { Toaster } from "sonner";
 import Chat from "./pages/Chat";
 import PublicLayout from "./components/PublicLayout";
 import AuthLayout from "./components/AuthLayout";
+import useAuthentication from "./hooks/useAuthentication";
+import { useEffect } from "react";
+import Loader from "./pages/Loader";
 
 const App = () => {
+  const { account, loading } = useAuthentication();
+  useEffect(() => {
+    account();
+  }, []);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
       <Toaster theme="dark" />
