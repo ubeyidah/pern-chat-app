@@ -17,7 +17,7 @@ const Profile = () => {
 
         <ul
           tabIndex={0}
-          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-fit p-2 shadow"
         >
           <div className="border-b p-2 border-slate-700 flex items-center gap-2">
             <div className="avatar">

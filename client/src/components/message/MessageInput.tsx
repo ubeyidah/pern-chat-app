@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 const MessageInput = () => {
+  const [message, setMessage] = useState("");
   return (
     <form className="bg-slate-700/30 p-4">
       <div className="w-full relative">
@@ -6,10 +9,14 @@ const MessageInput = () => {
           type="text"
           className="border text-sm rounded-lg block w-full py-2.5  bg-gray-700 border-gray-600 text-white input px-3"
           placeholder="Send a message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          name="message"
         />
         <button
           type="submit"
           className="absolute inset-y-0 end-0 flex items-center btn btn-ghost !py-2"
+          disabled={!message}
         >
           {0 ? (
             <span className="loading loading-spinner" />
