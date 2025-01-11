@@ -2,15 +2,18 @@ import { create } from "zustand";
 import { MessageType, UserConvType } from "../types/types";
 
 type ConversationType = {
-  conversation: UserConvType | null;
+  selectedConversation: UserConvType | null;
   messages: MessageType[] | null;
-  setConversation: (conversation: UserConvType) => void;
+  setSelectedConversation: (conversation: UserConvType) => void;
   setMessages: (messages: MessageType[]) => void;
+  clearMessage: () => void;
 };
 
 export const useConversation = create<ConversationType>((set) => ({
-  conversation: null,
+  selectedConversation: null,
   messages: [],
-  setConversation: (conversation) => set({ conversation }),
+  setSelectedConversation: (selectedConversation) =>
+    set({ selectedConversation }),
   setMessages: (messages) => set({ messages }),
+  clearMessage: () => set({ messages: [] }),
 }));

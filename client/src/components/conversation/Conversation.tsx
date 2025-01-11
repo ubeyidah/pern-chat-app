@@ -29,7 +29,7 @@ const Conversation = () => {
   }
 
   return (
-    <div>
+    <div className="overflow-y-auto h-[calc(100%-73px)] pb-5">
       {users?.map((user) => (
         <ConversationCard key={user.id} {...user} />
       ))}
