@@ -2,7 +2,7 @@ import Profile from "./Profile";
 
 const Sidebar = () => {
   return (
-    <aside className="border-r sticky top-0 left-0 h-screen border-slate-600 bg-slate-600/30">
+    <aside className="border-r h-screen border-slate-600 bg-slate-600/30">
       <div className="flex items-center justify-between gap-1 border-b border-slate-700 p-2">
         <Profile />
         <label className="input input-bordered flex items-center gap-2 rounded-full">
